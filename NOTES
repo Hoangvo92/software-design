@@ -1,0 +1,6 @@
+COSC4353 Software Design Summer 2019 Project
+
+TEXAS FUEL RATE PREDICTOR
+
+Create Virtual Environment Using Python3:
+virtualenv -p /usr/bin/python3 venv
