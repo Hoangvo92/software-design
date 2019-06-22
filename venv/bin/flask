@@ -1,4 +1,4 @@
-#!/home/leo/COSC4353/webapp/venv/bin/python3
+#!/home/leo/COSC4353/webapp/venv/bin/python3.6
 # -*- coding: utf-8 -*-
 import re
 import sys
