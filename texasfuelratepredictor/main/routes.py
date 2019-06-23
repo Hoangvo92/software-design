@@ -1,5 +1,4 @@
 from flask import render_template, request, Blueprint
-from texasfuelratepredictor.models import Post
 
 main = Blueprint('main', __name__)
 
