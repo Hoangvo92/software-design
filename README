@@ -1,11 +1,10 @@
-Here we learn about the Python Flask framework to build a simple blog website
-This file contains useful information, commands, as well as notes.
+This file contains useful information, commands, as well as side notes.
 
 Go to http://flask.pocoo.org/ for info on the flask framework
 
 I followed this video https://www.youtube.com/watch?v=QnDWIZuWYW0
 
-Make sure you use python3.x or any up-to-date python version
+Make sure you use python3.6.x or any up-to-date python version
 
 First, create a virtual environment
 Within your source code directory or main project directory run:
@@ -83,3 +82,4 @@ flaskblog/
 
 3 directories, 17 files
 
+More is missing in this file.
