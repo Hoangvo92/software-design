@@ -14,6 +14,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(20), nullable=False, default='default.jpg') 
     password = db.Column(db.String(60), nullable=False)
+    order = db.relationship('Quote', backref='client', lazy=True)
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(current_app.config['SECRET_KEY'], expires_sec)
@@ -31,3 +32,18 @@ class User(db.Model, UserMixin):
     # magic method
     def __repr__(self):
         return f"User('{self.username}','{self.email}', '{self.image_file}')"
+
+class Quote(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    gallon = db.Column(db.Integer)
+    address= db.Column(db.String(100), unique=True, nullable=False)
+    datedelivery = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
+    suggested_price = db.Column(db.Integer)
+    total_price = db.Column(db.Integer)
+    client_name = db.Column(db.String(120), db.ForeignKey('user.username'), nullable=False)
+
+
+
+    # magic method
+    def __repr__(self):
+        return f"Quote('{self.gallon}','{self.address}', '{self.datedelivery}', '{total_price}','{self.client_name}')"
