@@ -4,3 +4,19 @@ TEXAS FUEL RATE PREDICTOR
 
 Create Virtual Environment Using Python3:
 virtualenv -p /usr/bin/python3 venv
+
+To fix the "no such table user..." error try this:
+
+1. Close the running application if open.
+2. Enter into a python shell.
+3. Enter this:
+    from texasfuelratepredictor import create_app, db
+    ctx = app.app_context()
+    ctx.push()
+    # work on database here
+    db.create_all()
+    # ...
+    ctx.pop() # exits app
+    exit()
+
+Now launch the app again and you should be able to add/delete/register users.
