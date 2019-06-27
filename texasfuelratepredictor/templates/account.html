@@ -118,6 +118,19 @@
                 </div>
 
                 <!-- state -->
+                <div class="form-group">
+                    {{ form.state.label(class="form-control-label") }}
+                    {% if form.state.errors %}
+                    {{ form.state(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.state.errors %}
+                        <span>{{ error }}</span> 
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                    {{ form.state(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
 
                 <!-- zipcode -->
                 <div class="form-group">
