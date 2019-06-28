@@ -1,0 +1,79 @@
+<!-- template inheritence -->
+{% extends "layout.html" %}
+{% block content %}
+<div class="content-section">
+    <form method="POST" action="">
+        {{ form.hidden_tag() }}
+        <fieldset class="form-group">
+            <legend class="border_bottom mb-4">{{ legend }}</legend>
+
+            <!-- gallon -->
+            <div class="form-group">
+                {{ form.gallon.label(class="form-control-label") }}
+                {% if form.gallon.errors %}
+                    {{ form.gallon(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.gallon.errors %}
+                            <span>{{ error }}</span> 
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.gallon(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+
+            <!-- address -->
+            <div class="form-group">
+                {{ form.address.label(class="form-control-label") }}
+               <p>{{ client.address1}} , {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
+               {% set my_string = my_string ~ client.address1 ~ ', '%}
+               {% set my_string = my_string ~ client.address2 ~', '%}
+               {% set my_string = my_string ~ client.city ~', '%}
+               {% set my_string = my_string ~ client.state ~', '%}
+               {% set form.address = my_string %}
+
+            </div>
+
+            <!-- date delivery -->
+            <div class="form-group">
+                {{ form.d_delivery.label(class="form-control-label") }}
+                <input type="date" min="" max="2029-08-02">
+            </div>
+
+            <!-- suggested price -->
+            <div class="form-group">
+                {{ form.suggestp.label(class="form-control-label") }}
+                {% if form.suggestp.errors %}
+                    {{ form.suggestp(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.suggestp.errors %}
+                            <span>{{ error }}</span> 
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.suggestp(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+            <!-- total price -->
+            <div class="form-group">
+                {{ form.totalp.label(class="form-control-label") }}
+                {% if form.totalp.errors %}
+                    {{ form.totalp(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.totalp.errors %}
+                            <span>{{ error }}</span> 
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.totalp(class="form-control form-control-lg") }}
+                {% endif %}
+            </div>
+        </fieldset>
+
+        <!-- submit -->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}

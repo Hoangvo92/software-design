@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy # see https://tinyurl.com/y65ko6h3
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from flask_wtf.csrf import CSRFProtect, CSRFError #
+#from flask_wtf.csrf import CSRFProtect, CSRFError #
 from texasfuelratepredictor.config import Config
 import os.path
 
@@ -17,7 +17,7 @@ mail = Mail()
 
 def create_app(config_class = Config):
     app = Flask(__name__)
-    csrf = CSRFProtect(app)#
+    #csrf = CSRFProtect(app)#
     app.config.from_object(Config)
     db.init_app(app)
     bcrypt.init_app(app)
@@ -26,9 +26,11 @@ def create_app(config_class = Config):
 
     from texasfuelratepredictor.users.routes import users
     from texasfuelratepredictor.main.routes import main
+    from texasfuelratepredictor.fuel.routes import fuel
     from texasfuelratepredictor.errors.handlers import errors
     app.register_blueprint(users)
     app.register_blueprint(main)
+    app.register_blueprint(fuel)
     app.register_blueprint(errors)
 
     return app
