@@ -11,7 +11,7 @@ fuel = Blueprint('fuel', __name__)
 def fuel_rate_cal():
     form = FuelForm()
     #client = ClientInformation.query.filter_by(email=current_user.email).first()
-    client = ClientInformation.query.filter_by(person_name=current_user.username).first()
+    client = ClientInformation.query.filter_by(client=current_user.username).first()
     if form.validate_on_submit():
         form.totalp.data = form.gallon.data * form.suggestp.data
         newFuel = Quote(gallon=form.gallon.data, 
@@ -19,7 +19,7 @@ def fuel_rate_cal():
                          datedelivery=form.d_delivery.data, 
                          sugggested_price=form.suggestp.data,
                          total_price =form.totalp.data,
-                         client_name=current_user.username)
+                         client=current_user.username)
         db.session.add(newFuel)
         db.session.commit()
         flash('New Fuel Rate Quote in history', 'success')

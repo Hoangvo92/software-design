@@ -58,7 +58,7 @@ def account():
                                     city=form.city.data,
                                     state=form.state.data,
                                     zipcode=form.zipcode.data,
-                                    person_name= current_user.username)
+                                    client= current_user.username)
 
         db.session.add(client_info)
         db.session.commit()

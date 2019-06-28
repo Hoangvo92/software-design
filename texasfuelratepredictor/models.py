@@ -43,7 +43,7 @@ class ClientInformation(db.Model, UserMixin):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(100), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
-    person_name = db.Column(db.String(120), db.ForeignKey('user.username'), nullable=False)
+    client = db.Column(db.Integer, db.ForeignKey('user.username'), nullable=False)
 
      # magic method
     def __repr__(self):
