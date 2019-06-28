@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 class FuelForm(FlaskForm):
       gallon = IntegerField('# of Gallons', validators=[DataRequired()])
       address = StringField('Address')
-      d_deliver = DateField('Date Delivery', validators=[DataRequired()])
+      d_deliver = DateField('Delivery Date', validators=[DataRequired()])
       suggestp = DecimalField('Suggested Price')
       totalp = DecimalField('Total Price')
       submit = SubmitField('Calculate Fuel Rate')
