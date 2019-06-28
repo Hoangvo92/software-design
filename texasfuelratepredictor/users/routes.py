@@ -57,8 +57,12 @@ def account():
                                     address2=form.address2.data,
                                     city=form.city.data,
                                     state=form.state.data,
+<<<<<<< HEAD
                                     zipcode=form.zipcode.data,
                                     person_name= current_user.username)
+=======
+                                    zipcode=form.zipcode.data)
+>>>>>>> a6b87c9c110d3ca901691e47f0b41ea94cae0cd2
         db.session.add(client_info)
         db.session.commit()
         flash('Your account has been updated!', 'success')

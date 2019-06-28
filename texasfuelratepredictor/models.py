@@ -4,6 +4,7 @@ from flask import current_app
 from texasfuelratepredictor import db, login_manager
 from flask_login import UserMixin
 
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -38,6 +39,7 @@ class ClientInformation(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     fullname = db.Column(db.String(50), nullable=False)
     address1 = db.Column(db.String(100), nullable=False)
+<<<<<<< HEAD
     address2 = db.Column(db.String(100))
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(100), nullable=False)
@@ -63,3 +65,14 @@ class Quote(db.Model, UserMixin):
     # magic method
     def __repr__(self):
         return f"Quote('{self.gallon}','{self.address}', '{self.datedelivery}', '{self.total_price}','{self.client_name}')"
+=======
+    address2 = db.Column(db.String(100), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    state = db.Column(db.String(2), nullable=False)
+    zipcode = db.Column(db.String(9), nullable=True)
+    client_username = db.Column(db.String(20), db.ForeignKey('user.username'), nullable=True)
+
+    # magic method
+    def __repr__(self):
+        return f"Profile('{self.fullname}','{self.address1}', '{self.address2}', '{self.city}, '{self.state}, '{self.zipcode})"
+>>>>>>> a6b87c9c110d3ca901691e47f0b41ea94cae0cd2
