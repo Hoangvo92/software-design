@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint
 from flask_login import login_user, current_user, logout_user, login_required
 from texasfuelratepredictor import db, bcrypt
-from texasfuelratepredictor.models import User
+from texasfuelratepredictor.models import User, ClientInformation
 from texasfuelratepredictor.users.forms import (RegistrationForm, LoginForm, UpdateAccountForm,
                                            RequestResetForm, ResetPasswordForm)
 from texasfuelratepredictor.users.utils import save_picture, send_reset_email
@@ -11,7 +11,7 @@ users = Blueprint('users', __name__)
 @users.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('main.about'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -33,7 +33,7 @@ def login():
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
             next_page = request.args.get('next')
-            return redirect(next_page) if next_page else redirect(url_for('main.home'))
+            return redirect(next_page) if next_page else redirect(url_for('main.about'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
@@ -52,8 +52,14 @@ def account():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
-        current_user.username = form.username.data
-        current_user.email = form.email.data
+        client_info = ClientInformation(fullname=form.fullname.data,
+                                    address1=form.address1.data,
+                                    address2=form.address2.data,
+                                    city=form.city.data,
+                                    state=form.state.data,
+                                    zipcode=form.zipcode.data,
+                                    person_name= current_user.username)
+        db.session.add(client_info)
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))

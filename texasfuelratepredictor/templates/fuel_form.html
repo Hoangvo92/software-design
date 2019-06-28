@@ -25,18 +25,14 @@
             <!-- address -->
             <div class="form-group">
                 {{ form.address.label(class="form-control-label") }}
-               <p>{{ client.address1}} , {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
-               {% set my_string = my_string ~ client.address1 ~ ', '%}
-               {% set my_string = my_string ~ client.address2 ~', '%}
-               {% set my_string = my_string ~ client.city ~', '%}
-               {% set my_string = my_string ~ client.state ~', '%}
-               {% set form.address = my_string %}
+               <p style="border: solid 1px">{{ client.address1}} , {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
+
 
             </div>
 
             <!-- date delivery -->
             <div class="form-group">
-                {{ form.d_delivery.label(class="form-control-label") }}
+                {{ form.d_deliver.label(class="form-control-label") }}
                 <input type="date" min="" max="2029-08-02">
             </div>
 

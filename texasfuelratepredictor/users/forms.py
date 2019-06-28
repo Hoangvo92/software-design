@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from flask_login import current_user
-from texasfuelratepredictor.models import User
+from texasfuelratepredictor.models import User, ClientInformation
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
@@ -39,7 +39,17 @@ class UpdateAccountForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                         validators=[DataRequired(), Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'giff'])])
+    fullname = StringField('Full Name',
+                           validators=[DataRequired(), Length(min=2, max=50)])
+    address1 = TextAreaField('Address 1',validators=[DataRequired(), Length(min=2, max=100)]) 
+    address2 = TextAreaField('Address 2',validators=[Optional(), Length(min=2, max=100)])
+    city = StringField('City',
+                           validators=[DataRequired(), Length(min=2, max=100)])
+    # dropdown menu will be added later
+    state = StringField('State', 
+                        validators=[DataRequired(), Length(max=2)])
+    zipcode = StringField('Zip', validators=[DataRequired(), Length(min=5, max=9)])
     submit = SubmitField('Update')
 
     def validate_username(self, username):
