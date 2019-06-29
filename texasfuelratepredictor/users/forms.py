@@ -43,7 +43,7 @@ class UpdateAccountForm(FlaskForm):
     fullname = StringField('Full Name',
                            validators=[DataRequired(), Length(min=2, max=50)])
     address1 = TextAreaField('Address 1',validators=[DataRequired(), Length(min=2, max=100)]) 
-    address2 = TextAreaField('Address 2',validators=[Optional(), Length(min=2, max=100)])
+    address2 = TextAreaField('Address 2 (Optional)',validators=[Optional(), Length(min=2, max=100)])
     city = StringField('City',
                            validators=[DataRequired(), Length(min=2, max=100)])
     # dropdown menu will be added later
