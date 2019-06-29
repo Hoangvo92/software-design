@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<h3 class="mb-3"> Fuel Quote History of {{ user.fullname }} ({{ listQuote.total}})</h3>>
+    {% if listQuote %}
+        {% for quote in listQuote.items %}
+            <article class = "media content-section">
+                <h4>Date create: <a class="article-title" href="{{ url_for('fuel.pastQuote',quote_id=quote.id)}}">{{quote.datepost}}</a></h4>
+                  <ul>
+                    <li>Gallon:            {{quote.gallon}}</li>
+                    <li>Address:           {{quote.address}}</li>
+                    <li>Date delivery:     {{quote.datedelivery}}</li>
+                    <li>Suggested price: $ {{quote.suggested_price}}</li> 
+                    <li>Total price:     $ {{quote.total_price}}</li>
+                  </ul>
+            </article>      
+        {% endfor%}
+        {% for page_num in listQuote.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+          {% if page_num %}
+             {% if listQuote.page == page_num %}
+                 <a class="btn btn-info mb-4" href="{{ url_for('fuel.history', page=page_num) }}">{{ page_num }} </a>
+             {% else %}
+                 <a class="btn btn-outline-info mb-4" href="{{ url_for('fuel.history', page=page_num) }}">{{ page_num }} </a>
+             {% endif %} 
+          {% else%}
+          {% endif %}
+        {% endfor %}
+    {% endif %}
+     
+{% endblock content %}

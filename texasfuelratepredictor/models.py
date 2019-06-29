@@ -43,7 +43,7 @@ class ClientInformation(db.Model, UserMixin):
     city = db.Column(db.String(100), nullable=False)
     state = db.Column(db.String(100), nullable=False)
     zipcode = db.Column(db.String(10), nullable=False)
-    person_name = db.Column(db.String(120), db.ForeignKey('user.username'), nullable=False)
+    client = db.Column(db.Integer, db.ForeignKey('user.email'), nullable=False)
 
      # magic method
     def __repr__(self):
@@ -55,9 +55,10 @@ class Quote(db.Model, UserMixin):
     gallon = db.Column(db.Integer)
     address= db.Column(db.String(100), unique=True, nullable=False, default='')
     datedelivery = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
+    datepost = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     suggested_price = db.Column(db.Integer)
     total_price = db.Column(db.Integer)
-    client_name = db.Column(db.String(120), db.ForeignKey('user.username'), nullable=False)
+    client_em = db.Column(db.String(120), db.ForeignKey('user.email'), nullable=False)
 
 
 

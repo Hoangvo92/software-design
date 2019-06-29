@@ -18,14 +18,14 @@
                 <div class="form-group">
                     {{ form.username.label(class="form-control-label") }}
                     {% if form.username.errors %}
-                    {{ form.username(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.username.errors %}
-                        <span>{{ error }}</span> 
-                        {% endfor %}
-                    </div>
+                        {{ form.username(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                                <span>{{ error }}</span> 
+                            {% endfor %}
+                        </div>
                     {% else %}
-                    {{ form.username(class="form-control form-control-lg") }}
+                        {{ form.username(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -33,14 +33,14 @@
                 <div class="form-group">
                     {{ form.email.label(class="form-control-label") }}
                     {% if form.email.errors %}
-                    {{ form.email(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.email(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.email.errors %}
-                        <span> {{ error }} </span> 
+                            <span> {{ error }} </span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.email(class="form-control form-control-lg") }}
+                        {{ form.email(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -53,22 +53,20 @@
                             <span class="text-danger"> {{ error }} </span> 
                         {% endfor %}
                     {% endif %}
-
                 </div>
-            </fieldset>
 
                 <!-- fullname -->
                 <div class="form-group">
                     {{ form.fullname.label(class="form-control-label") }}
                     {% if form.fullname.errors %}
-                    {{ form.fullname(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.fullname(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.fullname.errors %}
-                        <span>{{ error }}</span> 
+                            <span>{{ error }}</span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.fullname(class="form-control form-control-lg") }}
+                        {{ form.fullname(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -76,14 +74,14 @@
                 <div class="form-group">
                     {{ form.address1.label(class="form-control-label") }}
                     {% if form.address1.errors %}
-                    {{ form.address1(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.address1(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.address1.errors %}
-                        <span>{{ error }}</span> 
+                            <span>{{ error }}</span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.address1(class="form-control form-control-lg") }}
+                        {{ form.address1(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -91,14 +89,14 @@
                 <div class="form-group">
                     {{ form.address2.label(class="form-control-label") }}
                     {% if form.address2.errors %}
-                    {{ form.address2(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.address2(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.address2.errors %}
-                        <span>{{ error }}</span> 
+                            <span>{{ error }}</span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.address2(class="form-control form-control-lg") }}
+                        {{ form.address2(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -121,14 +119,14 @@
                 <div class="form-group">
                     {{ form.state.label(class="form-control-label") }}
                     {% if form.state.errors %}
-                    {{ form.state(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.state(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.state.errors %}
-                        <span>{{ error }}</span> 
+                            <span>{{ error }}</span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.state(class="form-control form-control-lg") }}
+                        {{ form.state(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -136,16 +134,17 @@
                 <div class="form-group">
                     {{ form.zipcode.label(class="form-control-label") }}
                     {% if form.zipcode.errors %}
-                    {{ form.zipcode(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
+                        {{ form.zipcode(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
                         {% for error in form.zipcode.errors %}
-                        <span>{{ error }}</span> 
+                            <span>{{ error }}</span> 
                         {% endfor %}
-                    </div>
+                        </div>
                     {% else %}
-                    {{ form.zipcode(class="form-control form-control-lg") }}
+                        {{ form.zipcode(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
+            </fieldset>
 
             <!-- submit -->
             <div class="form-group">
