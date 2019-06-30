@@ -11,7 +11,6 @@ fuel = Blueprint('fuel', __name__)
 @login_required
 def fuel_rate_cal():
     form = FuelForm()
-    #client = ClientInformation.query.filter_by(email=current_user.email).first()
     client = ClientInformation.query.filter_by(client=current_user.email).first()
     if form.validate_on_submit():
         form.totalp.data = form.gallon.data * form.suggestp.data
