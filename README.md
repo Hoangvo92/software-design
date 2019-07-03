@@ -104,59 +104,6 @@ Nothing else needed other than python, flask, and pip packages described above.
 
 Coming soon.
 
-## Blueprint structure
-webapp
-├── NOTES
-├── README.md
-├── requirements.txt
-├── run.py
-└── texasfuelratepredictor
-├── config.py
-├── errors
-│   ├── handlers.py
-│   └── __init__.py
-├── fuel
-│   ├── forms.py
-│   ├── __init__.py
-│   └── routes.py
-├── __init__.py
-├── main
-│   ├── __init__.py
-│   └── routes.py
-├── models.py
-├── site.db
-├── static
-│   ├── main.css
-│   └── profile_pics
-│       ├── 1043cc1d2701e122.jpeg
-│       ├── 6579f5003164503a.png
-│       ├── a20fc178dc710925.jpg
-│       ├── e4933d1708b1b89d.jpg
-│       └── fba763a58376adfe.png
-├── templates
-│   ├── about.html
-│   ├── account.html
-│   ├── errors
-│   │   ├── 403.html
-│   │   ├── 404.html
-│   │   └── 500.html
-│   ├── fuel_form.html
-│   ├── fuel_history.html
-│   ├── home.html
-│   ├── layout.html
-│   ├── login.html
-│   ├── past_quote.html
-│   ├── register.html
-│   ├── reset_request.html
-│   └── reset_token.html
-└── users
-├── forms.py
-├── __init__.py
-├── routes.py
-└── utils.py
-
-9 directories, 39 files
-
 ## Built With
 
 * [Flask](http://flask.pocoo.org/) - The web framework used
