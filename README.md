@@ -1,7 +1,7 @@
 
 # Texas Fuel Rate Predictor
 
-Software design project web app to predict the fuel reate based on the following criteria:
+Software design project web app to predict the fuel rate based on the following criteria:
 - Client Location
 - Competitors rate
 - Client rate history
