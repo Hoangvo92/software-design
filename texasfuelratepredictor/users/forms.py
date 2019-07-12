@@ -1,9 +1,69 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, IntegerField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from flask_login import current_user
 from texasfuelratepredictor.models import User, ClientInformation
+
+states = {
+        'AK': 'Alaska',
+        'AL': 'Alabama',
+        'AR': 'Arkansas',
+        'AS': 'American Samoa',
+        'AZ': 'Arizona',
+        'CA': 'California',
+        'CO': 'Colorado',
+        'CT': 'Connecticut',
+        'DC': 'District of Columbia',
+        'DE': 'Delaware',
+        'FL': 'Florida',
+        'GA': 'Georgia',
+        'GU': 'Guam',
+        'HI': 'Hawaii',
+        'IA': 'Iowa',
+        'ID': 'Idaho',
+        'IL': 'Illinois',
+        'IN': 'Indiana',
+        'KS': 'Kansas',
+        'KY': 'Kentucky',
+        'LA': 'Louisiana',
+        'MA': 'Massachusetts',
+        'MD': 'Maryland',
+        'ME': 'Maine',
+        'MI': 'Michigan',
+        'MN': 'Minnesota',
+        'MO': 'Missouri',
+        'MP': 'Northern Mariana Islands',
+        'MS': 'Mississippi',
+        'MT': 'Montana',
+        'NA': 'National',
+        'NC': 'North Carolina',
+        'ND': 'North Dakota',
+        'NE': 'Nebraska',
+        'NH': 'New Hampshire',
+        'NJ': 'New Jersey',
+        'NM': 'New Mexico',
+        'NV': 'Nevada',
+        'NY': 'New York',
+        'OH': 'Ohio',
+        'OK': 'Oklahoma',
+        'OR': 'Oregon',
+        'PA': 'Pennsylvania',
+        'PR': 'Puerto Rico',
+        'RI': 'Rhode Island',
+        'SC': 'South Carolina',
+        'SD': 'South Dakota',
+        'TN': 'Tennessee',
+        'TX': 'Texas',
+        'UT': 'Utah',
+        'VA': 'Virginia',
+        'VI': 'Virgin Islands',
+        'VT': 'Vermont',
+        'WA': 'Washington',
+        'WI': 'Wisconsin',
+        'WV': 'West Virginia',
+        'WY': 'Wyoming'
+}
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username',
@@ -46,9 +106,7 @@ class UpdateAccountForm(FlaskForm):
     address2 = TextAreaField('Address 2 (Optional)',validators=[Optional(), Length(min=2, max=100)])
     city = StringField('City',
                            validators=[DataRequired(), Length(min=2, max=100)])
-    # dropdown menu will be added later
-    state = StringField('State', 
-                        validators=[DataRequired(), Length(max=2)])
+    state = SelectField('State', choices=[(state, state) for state in states])   
     zipcode = StringField('Zip', validators=[DataRequired(), Length(min=5, max=9)])
     submit = SubmitField('Update')
 
