@@ -12,6 +12,11 @@ Software design project web app to predict the fuel rate based on the following 
 
 ## Getting Started
 
+Enter the virtual environment
+```
+source venv/bin/activate
+```
+Start the app.
 ```
 python run.py
 ```

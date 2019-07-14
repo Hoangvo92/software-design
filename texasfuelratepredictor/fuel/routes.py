@@ -7,8 +7,6 @@ import datetime
 
 fuel = Blueprint('fuel', __name__)
 
-
-
 #to create a new fuel rate quote
 @fuel.route("/fuel_rate_price",  methods=['GET', 'POST'])
 @login_required
@@ -35,9 +33,9 @@ def fuel_rate_cal():
 @fuel.route("/fuel_rate_price/price",  methods=['GET', 'POST'])
 @login_required
 def pricing_module():
-    gallon = 12 # input parameter later from html
-    dateform = datetime.date(2019, 9,15) #input parameter later from html
     form = FuelForm()
+    gallon = form.gallon.data # input parameter later from html
+    dateform = datetime.date(2019, 9,15) #input parameter later from html
     email = current_user.email
     client = ClientInformation.query.filter_by(client=email).first()
     clientHistory = Quote.query.filter_by(client_em=email)
