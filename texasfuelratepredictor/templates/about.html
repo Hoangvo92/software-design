@@ -2,8 +2,10 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
-    <h1> About Page </h1>
-    <h2> Welcome! </h2>
+    <div style="background-color: rgb(210, 255, 47); width: 400px">
+            <h2 style="text-align: center"> Welcome! </h2>
+    </div>
+    
     <p>We work with the company to provide firm software for our client's needs.</p>
     <p>This site is used for predicting the fuel rate based on</p>
     <ol>
@@ -16,9 +18,6 @@
     </ol>
     <p>To start first update your account and enter the required information</p>
     <a href="{{ url_for('users.account') }}">Update Account</a>
-<<<<<<< HEAD
-=======
 
->>>>>>> e5e0c297838d2391d8a6b4019dd2b9aa921e1ef3
 {% endblock content %}
 
