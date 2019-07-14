@@ -1,7 +1,8 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
-<script>
+<script type="text/javascript" src="scripts/pricing_module.js"></script>
+<script type="text/javascript">
 function getDate() {
   var today = new Date();
   var dd = today.getDate();
@@ -35,8 +36,7 @@ function checkform()
             
         }
     }
-gallonInput = document.getElementById('gallon').value
-dateInput = document.getElementById('date').value
+
 </script>
 <div class="content-section">
     <form name="form1" method="POST" action="" onsubmit="return false">
@@ -45,8 +45,8 @@ dateInput = document.getElementById('date').value
             <legend class="border_bottom mb-4">{{ legend }}</legend>
 
             <!-- gallon -->
-            <div class="form-group" name="gallon">
-                {{ form.gallon.label(class="form-control-label",  onKeyup="checkform()") }}
+            <div class="form-group">
+                {{ form.gallon.label(class="form-control-label") }}
                 {% if form.gallon.errors %}
                     {{ form.gallon(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
@@ -55,42 +55,37 @@ dateInput = document.getElementById('date').value
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.gallon(class="form-control form-control-lg") }}
+                    {{ form.gallon(class="form-control form-control-lg", id="gallon",  onKeyup="checkform()") }}
                 {% endif %}
             </div>
 
             <!-- address -->
-            <div class="form-group" id="address">
+            <div class="form-group">
                 {{ form.address.label(class="form-control-label") }}
-<<<<<<< HEAD
-               <div style="height: 50px; border: 1px solid; border-radius: 5px; border-color: #ced4da">
-                     <p style="padding: 10px">{{ client.address1}} {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
-               </div>
-=======
-                <p style="border: solid 1px">{{ client.address1 }}, {{ client.address2 }} {{ client.city }}, {{ client.state }} {{ client.zipcode }}</p>
->>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
+                {% set my_string1 = [client.address1, client.address2]|join(' ') %}
+                {% set my_string = [my_string1, client.city, client.state, client.zipcode]|join(', ') %}
+                {{ form.address(class="form-control form-control-lg",
+                                 value=my_string,
+                                 id="address") }}
             </div>
+
 
             <!-- date delivery -->
             <div class="form-group">
                 {{ form.d_deliver.label(class="form-control-label") }}
-<<<<<<< HEAD
-                {{ form.d_deliver(class="form-control form-control-lg", 
+                {{form.d_deliver(class="form-control form-control-lg",
                                    type="date", id="date", onload="getDate()",
                                    style="border: 1px solid; border-radius: 5px; border-color: #ced4da",
                                     min="2019-07-01", max="2029-08-02") }}
                <!--<input type="date" name="date" style="border: 1px solid; border-radius: 5px; border-color: #ced4da"
                      min="2019-07-01" max="2029-08-02"> --> 
-=======
-                <input type="date"  min="2019-07-01" max="2029-08-02">
->>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
             </div>
-           
-            <!--get price-->
-            <form action="{{ url_for('fuel.pricing_module', gallon=gallonInput, dateform=dateInput) }}" method="POST">
-                    <input class="btn btn-primary" type="submit" value="Get Price">
-            </form>
 
+            <!--set price-->
+            <div>
+                    <input class="btn btn-primary" href="{{ url_for('fuel.pricing_module') }}" value="Get Price">
+            </div>
+          
             <!-- suggested price -->
             <div class="form-group">
                 {{ form.suggestp.label(class="form-control-label") }}

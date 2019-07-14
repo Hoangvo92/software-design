@@ -15,6 +15,7 @@ fuel = Blueprint('fuel', __name__)
 def fuel_rate_cal():
     form = FuelForm()
     client = ClientInformation.query.filter_by(client=current_user.email).first()
+    clientHistory = Quote.query.filter_by(client_em=current_user.email)
     if form.validate_on_submit():
         newFuel = Quote(gallon=form.gallon.data, 
                          address=form.address.data, 
@@ -28,12 +29,14 @@ def fuel_rate_cal():
         return redirect(url_for('main.home'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
                 form = form, legend='Fuel Rate Quote', client= client,
-                totalp=0, suggestp=0)
+                totalp=0, suggestp=0, clientHistory=clientHistory)
 
 #pricing module
-@fuel.route("/fuel_rate_price/<int: gallon>/<dateform>",  methods=['GET', 'POST'])
+@fuel.route("/fuel_rate_price/price",  methods=['GET', 'POST'])
 @login_required
-def pricing_module(gallon, dateform):
+def pricing_module():
+    gallon = 12 # input parameter later from html
+    dateform = datetime.date(2019, 9,15) #input parameter later from html
     form = FuelForm()
     email = current_user.email
     client = ClientInformation.query.filter_by(client=email).first()
