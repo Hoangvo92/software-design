@@ -17,7 +17,6 @@ mail = Mail()
 
 def create_app(config_class = Config):
     app = Flask(__name__)
-    #csrf = CSRFProtect(app)#
     app.config.from_object(Config)
     db.init_app(app)
     bcrypt.init_app(app)
@@ -28,6 +27,7 @@ def create_app(config_class = Config):
     from texasfuelratepredictor.main.routes import main
     from texasfuelratepredictor.fuel.routes import fuel
     from texasfuelratepredictor.errors.handlers import errors
+
     app.register_blueprint(users)
     app.register_blueprint(main)
     app.register_blueprint(fuel)

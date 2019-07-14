@@ -17,11 +17,12 @@
         {% else %}
         <title>TFRP </title>
         {% endif %}
-
+        <!-- other css file-->
+        <link rel="stylesheet" type="text/css" href="layout.css">
     </head>
     <body>
         <header class="site-header">
-            <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
+            <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top" >
                 <div class="container">
                     <a class="navbar-brand mr-4" href="/">TFRP</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,13 +36,13 @@
                         <!-- Navbar Right Side -->
                         <div class="navbar-nav">
                             {% if current_user.is_authenticated %}
-                                <a class="nav-item nav-link" href="{{ url_for('fuel.history') }}">History</a>
-                                <a class="nav-item nav-link" href="{{ url_for('fuel.fuel_rate_cal') }}">Predictor</a>
-                                <a class="nav-item nav-link" href="{{ url_for('users.account') }}">Account</a>
-                                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}">Logout</a>
+                                <a id="select1" class="nav-item nav-link" href="{{ url_for('fuel.history') }}" >History</a>
+                                <a id="select1" class="nav-item nav-link" href="{{ url_for('fuel.fuel_rate_cal') }}">Predictor</a>
+                                <a id="select1" class="nav-item nav-link" href="{{ url_for('users.account') }}" >Account</a>
+                                <a class="nav-item nav-link" href="{{ url_for('users.logout') }}" >Logout</a>
                             {% else %}
-                                <a class="nav-item nav-link" href="{{ url_for('users.login') }}">Login</a>
-                                <a class="nav-item nav-link" href="{{ url_for('users.register') }}">Register</a>
+                                <a class="nav-item nav-link" href="{{ url_for('users.login') }}" >Login</a>
+                                <a class="nav-item nav-link" href="{{ url_for('users.register') }}" >Register</a>
                             {% endif %}
                         </div>
                     </div>
@@ -49,9 +50,9 @@
             </nav>
         </header>
 
-        <main role="main" class="container">
-        <div class="row">
-            <div class="col-md-8">
+        <main role="main" class="container" style="position: relative; min-height: 85vh">
+        <div class="row" style="padding-bottom: 2.5rem">
+            <div class="col-md-8" style="background-color: whitesmoke">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         {% for category, message in messages %}
@@ -75,7 +76,28 @@
                 </div>
             </div>
         </div>
+        <!--footer-->
+
         </main>
+        <div class="footer navbar-fixed-bottom" style="color: white; height: 2.5rem; width: 100%; position: absolute;  background-image: url(http://style24x7.com/wp-content/uploads/2018/12/Background-Wallpaper-HD-Autumn-Nature-Photo-120.jpg)">
+            <p style="text-align: center">© 2019 Texas Fuel Rate Predictor</p>
+       </div>
+        <!--
+        <footer class="c_content-info c_container cr" role="contentinfo">
+            <div class="c_row cr" id="c_triangle-down"></div>
+                <div class="c_row c_content-info-footer cr">
+                <div class="c_col-md-3 cr"></div>
+                <div class="c_col-md-3 cr"></div>
+                <div class="c_col-md-3 cr"></div>
+               </div>
+                <div class="c_row c_toes cr"></div>
+                 <div class="c_row cr">
+                     <div class="c_col-lg-12 cr">
+                        <p class="c_copyright cr">© 2019 Texas Fuel Rate Predictor</p>
+                    </div>
+                </div>
+       </footer> 
+    -->
 
         <!-- copied from https://tinyurl.com/y2q9ucgz -->
         <!-- Optional JavaScript -->

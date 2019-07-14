@@ -2,22 +2,33 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
+<<<<<<< HEAD
     <div style="background-color: rgb(210, 255, 47); width: 400px">
             <h2 style="text-align: center"> Welcome! </h2>
     </div>
     
+=======
+    <h1> About TFRP </h1>
+    <h2> Welcome to Texas Fuel Rate Predictor! </h2>
+>>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
     <p>We work with the company to provide firm software for our client's needs.</p>
-    <p>This site is used for predicting the fuel rate based on</p>
+    <p>TFRP is used for predicting the fuel rate based on the:</p>
     <ol>
         <li>Client's Location</li>
         <li>Competitor's Rate</li>
         <li>Client's Rate History</li>
         <li>Gallons Requested</li>
-        <li>Company profit margin</li>
+        <li>Company's profit margin</li>
         <li>Seasonal rate fluctuation</li>
     </ol>
+<<<<<<< HEAD
     <p>To start first update your account and enter the required information</p>
     <a href="{{ url_for('users.account') }}">Update Account</a>
 
+=======
+    <p>To start first <a href="{{ url_for('users.account') }}">update your account </a>and enter the required information</p>
+    <p>If you already updated your account go ahead and <a href="{{ url_for('fuel.fuel_rate_cal') }}">calculate your first fuel quote!</a></p>
+    
+>>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
 {% endblock content %}
 

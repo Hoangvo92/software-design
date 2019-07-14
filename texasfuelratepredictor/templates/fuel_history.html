@@ -4,7 +4,7 @@
     {% if listQuote %}
         {% for quote in listQuote.items %}
             <article class = "media content-section">
-                <h4>Date create: <a class="article-title" href="{{ url_for('fuel.pastQuote',quote_id=quote.id)}}">{{quote.datepost}}</a></h4>
+                <h4>Date created: <a class="article-title" href="{{ url_for('fuel.pastQuote',quote_id=quote.id)}}">{{quote.datepost}}</a></h4>
                   <ul>
                     <li>Gallon:            {{quote.gallon}}</li>
                     <li>Address:           {{quote.address}}</li>

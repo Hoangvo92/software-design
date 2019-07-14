@@ -53,12 +53,12 @@ def account():
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
         client_info = ClientInformation(fullname=form.fullname.data,
-                                    address1=form.address1.data,
-                                    address2=form.address2.data,
-                                    city=form.city.data,
-                                    state=form.state.data,
-                                    zipcode=form.zipcode.data,
-                                    client= current_user.email)
+                address1=form.address1.data,
+                address2=form.address2.data,
+                city=form.city.data,
+                state=form.state.data,
+                zipcode=form.zipcode.data,
+                client= current_user.email)
 
         db.session.add(client_info)
         db.session.commit()
@@ -69,7 +69,7 @@ def account():
         form.email.data = current_user.email
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
-                           image_file=image_file, form=form)
+            image_file=image_file, form=form)
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():

@@ -62,20 +62,28 @@ dateInput = document.getElementById('date').value
             <!-- address -->
             <div class="form-group" id="address">
                 {{ form.address.label(class="form-control-label") }}
+<<<<<<< HEAD
                <div style="height: 50px; border: 1px solid; border-radius: 5px; border-color: #ced4da">
                      <p style="padding: 10px">{{ client.address1}} {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
                </div>
+=======
+                <p style="border: solid 1px">{{ client.address1 }}, {{ client.address2 }} {{ client.city }}, {{ client.state }} {{ client.zipcode }}</p>
+>>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
             </div>
 
             <!-- date delivery -->
             <div class="form-group">
                 {{ form.d_deliver.label(class="form-control-label") }}
+<<<<<<< HEAD
                 {{ form.d_deliver(class="form-control form-control-lg", 
                                    type="date", id="date", onload="getDate()",
                                    style="border: 1px solid; border-radius: 5px; border-color: #ced4da",
                                     min="2019-07-01", max="2029-08-02") }}
                <!--<input type="date" name="date" style="border: 1px solid; border-radius: 5px; border-color: #ced4da"
                      min="2019-07-01" max="2029-08-02"> --> 
+=======
+                <input type="date"  min="2019-07-01" max="2029-08-02">
+>>>>>>> 4eeea08fe9dd112de4b4264eb436f96a6c7c4b4a
             </div>
            
             <!--get price-->

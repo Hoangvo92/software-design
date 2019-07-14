@@ -119,14 +119,14 @@
                 <div class="form-group">
                     {{ form.state.label(class="form-control-label") }}
                     {% if form.state.errors %}
-                        {{ form.state(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
+                    {{ form.state(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
                         {% for error in form.state.errors %}
-                            <span>{{ error }}</span> 
+                        <span>{{ error }}</span> 
                         {% endfor %}
-                        </div>
+                    </div>
                     {% else %}
-                        {{ form.state(class="form-control form-control-lg") }}
+                    {{ form.state(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
 
@@ -134,14 +134,14 @@
                 <div class="form-group">
                     {{ form.zipcode.label(class="form-control-label") }}
                     {% if form.zipcode.errors %}
-                        {{ form.zipcode(class="form-control form-control-lg is-invalid") }}
-                        <div class="invalid-feedback">
+                    {{ form.zipcode(class="form-control form-control-lg is-invalid") }}
+                    <div class="invalid-feedback">
                         {% for error in form.zipcode.errors %}
-                            <span>{{ error }}</span> 
+                        <span>{{ error }}</span> 
                         {% endfor %}
-                        </div>
+                    </div>
                     {% else %}
-                        {{ form.zipcode(class="form-control form-control-lg") }}
+                    {{ form.zipcode(class="form-control form-control-lg") }}
                     {% endif %}
                 </div>
             </fieldset>
@@ -152,4 +152,4 @@
             </div>
         </form>
     </div>                                                                 
-{% endblock content %}
+    {% endblock content %}
