@@ -1,15 +1,52 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
+<script>
+function getDate() {
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; //January is 0!
+  var yyyy = today.getFullYear();
+
+  if(dd<10) {
+      dd = '0'+dd
+  } 
+
+  if(mm<10) {
+      mm = '0'+mm
+  } 
+
+  today = yyyy + '/' + mm + '/' + dd;
+  document.getElementById("date").value = today;
+}
+
+
+function checkform()
+    {
+        var f = document.forms["form1"].elements;
+        var cansubmit = true;
+
+        for (var i = 0; i < f.length; i++) {
+            if (f[i].value.length == 0) cansubmit = false;
+        }
+
+        if (cansubmit) {
+            document.getElementById('submitbutton').disabled = !cansubmit;
+            
+        }
+    }
+gallonInput = document.getElementById('gallon').value
+dateInput = document.getElementById('date').value
+</script>
 <div class="content-section">
-    <form method="POST" action="">
+    <form name="form1" method="POST" action="" onsubmit="return false">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border_bottom mb-4">{{ legend }}</legend>
 
             <!-- gallon -->
-            <div class="form-group">
-                {{ form.gallon.label(class="form-control-label") }}
+            <div class="form-group" name="gallon">
+                {{ form.gallon.label(class="form-control-label",  onKeyup="checkform()") }}
                 {% if form.gallon.errors %}
                     {{ form.gallon(class="form-control form-control-lg is-invalid") }}
                     <div class="invalid-feedback">
@@ -23,51 +60,54 @@
             </div>
 
             <!-- address -->
-            <div class="form-group">
+            <div class="form-group" id="address">
                 {{ form.address.label(class="form-control-label") }}
-               <p style="border: solid 1px">{{ client.address1}} , {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
+               <div style="height: 50px; border: 1px solid; border-radius: 5px; border-color: #ced4da">
+                     <p style="padding: 10px">{{ client.address1}} {{client.address2}} ,{{ client.city }} ,{{client.state}}</p>
+               </div>
             </div>
 
             <!-- date delivery -->
             <div class="form-group">
                 {{ form.d_deliver.label(class="form-control-label") }}
-                <input type="datetime-local" value="2019-07-05T19:30" min="2019-07-01T00:00" max="2029-08-02T00:00">
+                {{ form.d_deliver(class="form-control form-control-lg", 
+                                   type="date", id="date", onload="getDate()",
+                                   style="border: 1px solid; border-radius: 5px; border-color: #ced4da",
+                                    min="2019-07-01", max="2029-08-02") }}
+               <!--<input type="date" name="date" style="border: 1px solid; border-radius: 5px; border-color: #ced4da"
+                     min="2019-07-01" max="2029-08-02"> --> 
             </div>
+           
+            <!--get price-->
+            <form action="{{ url_for('fuel.pricing_module', gallon=gallonInput, dateform=dateInput) }}" method="POST">
+                    <input class="btn btn-primary" type="submit" value="Get Price">
+            </form>
 
             <!-- suggested price -->
             <div class="form-group">
                 {{ form.suggestp.label(class="form-control-label") }}
-                {% if form.suggestp.errors %}
-                    {{ form.suggestp(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.suggestp.errors %}
-                            <span>{{ error }}</span> 
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.suggestp(class="form-control form-control-lg") }}
-                {% endif %}
+
+                {{ form.suggestp(class="form-control form-control-lg",
+                                 value=suggestp,
+                                 id="suggestprice") }}
+
             </div>
+
             <!-- total price -->
             <div class="form-group">
                 {{ form.totalp.label(class="form-control-label") }}
-                {% if form.totalp.errors %}
-                    {{ form.totalp(class="form-control form-control-lg is-invalid") }}
-                    <div class="invalid-feedback">
-                        {% for error in form.totalp.errors %}
-                            <span>{{ error }}</span> 
-                        {% endfor %}
-                    </div>
-                {% else %}
-                    {{ form.totalp(class="form-control form-control-lg") }}
-                {% endif %}
+                {{ form.totalp(class="form-control form-control-lg", 
+                               value=totalp, 
+                               id="totalprice"
+                               ) }}
             </div>
         </fieldset>
 
         <!-- submit -->
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info") }}
+            {{ form.submit(class="btn btn-outline-info btn-danger", id="submitbutton", disabled="disabled") }}
         </div>
+       
     </form>
 </div>
 {% endblock content %}

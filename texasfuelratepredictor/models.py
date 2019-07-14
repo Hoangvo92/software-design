@@ -54,7 +54,7 @@ class Quote(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     gallon = db.Column(db.Integer)
     address= db.Column(db.String(100), unique=True, nullable=False, default='')
-    datedelivery = db.Column(db.DateTime, nullable=False, default=datetime.utcnow) 
+    datedelivery = db.Column(db.Date, nullable=False) 
     datepost = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     suggested_price = db.Column(db.Integer)
     total_price = db.Column(db.Integer)

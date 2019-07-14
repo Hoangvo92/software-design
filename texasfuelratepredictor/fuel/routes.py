@@ -3,8 +3,11 @@ from flask_login import login_user, current_user, login_required
 from texasfuelratepredictor import db
 from texasfuelratepredictor.models import User, ClientInformation, Quote
 from texasfuelratepredictor.fuel.forms import FuelForm
+import datetime
 
 fuel = Blueprint('fuel', __name__)
+
+
 
 #to create a new fuel rate quote
 @fuel.route("/fuel_rate_price",  methods=['GET', 'POST'])
@@ -14,7 +17,6 @@ def fuel_rate_cal():
     #client = ClientInformation.query.filter_by(email=current_user.email).first()
     client = ClientInformation.query.filter_by(client=current_user.email).first()
     if form.validate_on_submit():
-        form.totalp.data = form.gallon.data * form.suggestp.data
         newFuel = Quote(gallon=form.gallon.data, 
                          address=form.address.data, 
                          datedelivery=form.d_delivery.data, 
@@ -26,7 +28,31 @@ def fuel_rate_cal():
         flash('New Fuel Rate Quote in history', 'success')
         return redirect(url_for('main.home'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
-                form = form, legend='Fuel Rate Quote', client= client)
+                form = form, legend='Fuel Rate Quote', client= client,
+                totalp=0, suggestp=0)
+
+#pricing module
+@fuel.route("/fuel_rate_price/<int: gallon>/<dateform>",  methods=['GET', 'POST'])
+@login_required
+def pricing_module(gallon, dateform):
+    form = FuelForm()
+    email = current_user.email
+    client = ClientInformation.query.filter_by(client=email).first()
+    clientHistory = Quote.query.filter_by(client_em=email)
+    timePeriod = datetime.datetime.strptime(dateform,"%Y-%m-%d")
+    month = timePeriod.month
+    current_p = 1.5
+    location_f = 0.02 if client.state=="TX" else 0.04
+    history_f = 0 if clientHistory.count()==0 else 0.01
+    gallon_f = 0.02 if gallon> 1000 else 0.03
+    company_f = 0.1
+    fluctuation_f = 0.04 if month>5 and month<9 else 0.03
+    margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f)
+    suggested_price = current_p + margin
+    total_price = gallon * suggested_price
+    return render_template('fuel_form.html', title='Fuel Quote Form',
+                form = form, legend='Fuel Rate Quote', client= client,
+                totalp=total_price, suggestp=suggested_price)
 
 #to check fuel quote history
 @fuel.route("/fuel_history",  methods=['GET', 'POST'])
