@@ -60,8 +60,6 @@ class Quote(db.Model, UserMixin):
     total_price = db.Column(db.Integer)
     client_em = db.Column(db.String(120), db.ForeignKey('user.email'), nullable=False)
 
-
-
     # magic method
     def __repr__(self):
         return f"Quote('{self.gallon}','{self.address}', '{self.datedelivery}', '{self.total_price}','{self.client_name}')"

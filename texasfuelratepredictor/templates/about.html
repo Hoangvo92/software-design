@@ -3,11 +3,12 @@
 {% extends "layout.html" %}
 {% block content %}
     <div style="background-color: rgb(210, 255, 47); width: 400px">
-            <h2 style="text-align: center"> Welcome! </h2>
+            <h2 style="text-align: center">  About TFRP </h2>
     </div>
+    <h2> Welcome to Texas Fuel Rate Predictor! </h2>
 
     <p>We work with the company to provide firm software for our client's needs.</p>
-    <p>TFRP is used for predicting the fuel rate based on the:</p>
+    <p>TFRP predicts the fuel rate based on the:</p>
     <ol>
         <li>Client's Location</li>
         <li>Competitor's Rate</li>
@@ -17,7 +18,10 @@
         <li>Seasonal rate fluctuation</li>
     </ol>
 
+
     <p>To start first <a href="{{ url_for('users.account') }}">update your account </a>and enter the required information</p>
+    <p>To start first login in or <a href="{{ url_for('users.register') }}">create an account</a></p>
+    <p>If you're already logged in <a href="{{ url_for('users.account') }}">update your account </a>and enter the required information</p>
     <p>If you already updated your account go ahead and <a href="{{ url_for('fuel.fuel_rate_cal') }}">calculate your first fuel quote!</a></p>
 
 {% endblock content %}
