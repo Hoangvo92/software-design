@@ -27,7 +27,7 @@ def fuel_rate_cal():
         return redirect(url_for('main.home'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
                 form = form, legend='Fuel Rate Quote', client= client,
-                totalp=0, suggestp=0, clientHistory=clientHistory)
+                clientHistory=clientHistory)
 
 #pricing module
 @fuel.route("/fuel_rate_price/price",  methods=['GET', 'POST'])

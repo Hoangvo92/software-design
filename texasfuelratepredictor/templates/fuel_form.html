@@ -46,9 +46,8 @@
 
             <!--set price-->
             <div>
-                    <button type="submit" 
-                            name="Get Price" 
-                            class="btn btn-primary" onlick="pricing(); return false" 
+                    <button name="Get Price" id="get_price"
+                            class="btn btn-primary" onlick="pricing();" 
                             value="Get Price">Get Price</button>
             </div>
           
@@ -57,7 +56,7 @@
                 {{ form.suggestp.label(class="form-control-label") }}
 
                 {{ form.suggestp(class="form-control form-control-lg",
-                                 
+                                 value=suggestp,
                                  id="suggestprice") }}
             </div>
 
@@ -65,7 +64,7 @@
             <div class="form-group">
                 {{ form.totalp.label(class="form-control-label") }}
                 {{ form.totalp(class="form-control form-control-lg", 
-                                
+                               value=totalp, 
                                id="totalprice"
                                ) }}
             </div>
@@ -86,9 +85,13 @@ let today = new Date().toISOString().substr(0, 10);
 document.querySelector("#date").value = today;
 
 /* Pricing module*/
+var totalp=0, suggestp=0;
+document.getElementById("#get_price").onclick = pricing;
 function pricing(){
     var gallon=document.getElementById("#gallon").value;
+    document.write("Gallon: "+ gallon);//
     var dateform = document.getElementById("#date").value;
+    document.write("dateform: "+ dateform);//
     var timePeriod = datetime.datetime.strptime(dateform,"%Y-%m-%d");
     var month = timePeriod.month;
     var current_p = 1.5;
@@ -120,9 +123,9 @@ function pricing(){
     document.write("Suggested price: "+ suggested_price);
     document.write("Total price: "+ total_price);
     document.getElementById("#suggestprice").innerHTML = suggested_price;
-    document.getElementById("#suggestprice").value = suggested_price;
+    suggestp = suggested_price;
     document.getElementById("#totalprice").innerHTML = total_price;
-    document.getElementById("#totalprice").value = total_price;
+    totalp = total_price;
 }
 
 
