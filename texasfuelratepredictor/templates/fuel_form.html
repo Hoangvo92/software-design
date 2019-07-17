@@ -1,43 +1,7 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
-<script type="text/javascript" src="scripts/pricing_module.js"></script>
-<script type="text/javascript">
-function getDate() {
-  var today = new Date();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0!
-  var yyyy = today.getFullYear();
 
-  if(dd<10) {
-      dd = '0'+dd
-  } 
-
-  if(mm<10) {
-      mm = '0'+mm
-  } 
-
-  today = yyyy + '/' + mm + '/' + dd;
-  document.getElementById("date").value = today;
-}
-
-
-function checkform()
-    {
-        var f = document.forms["form1"].elements;
-        var cansubmit = true;
-
-        for (var i = 0; i < f.length; i++) {
-            if (f[i].value.length == 0) cansubmit = false;
-        }
-
-        if (cansubmit) {
-            document.getElementById('submitbutton').disabled = !cansubmit;
-            
-        }
-    }
-
-</script>
 <div class="content-section">
     <form name="form1" method="POST" action="" onsubmit="return false">
         {{ form.hidden_tag() }}
@@ -69,7 +33,6 @@ function checkform()
                                  id="address") }}
             </div>
 
-
             <!-- date delivery -->
             <div class="form-group">
                 {{ form.d_deliver.label(class="form-control-label") }}
@@ -83,7 +46,10 @@ function checkform()
 
             <!--set price-->
             <div>
-                    <input class="btn btn-primary" href="{{ url_for('fuel.pricing_module') }}" value="Get Price">
+                    <button type="submit" 
+                            name="Get Price" 
+                            class="btn btn-primary" onlick="pricing(); return false" 
+                            value="Get Price">Get Price</button>
             </div>
           
             <!-- suggested price -->
@@ -91,16 +57,15 @@ function checkform()
                 {{ form.suggestp.label(class="form-control-label") }}
 
                 {{ form.suggestp(class="form-control form-control-lg",
-                                 value=suggestp,
+                                 
                                  id="suggestprice") }}
-
             </div>
 
             <!-- total price -->
             <div class="form-group">
                 {{ form.totalp.label(class="form-control-label") }}
                 {{ form.totalp(class="form-control form-control-lg", 
-                               value=totalp, 
+                                
                                id="totalprice"
                                ) }}
             </div>
@@ -113,4 +78,67 @@ function checkform()
        
     </form>
 </div>
+
+<!--  <script type="text/javascript" src="scripts/pricing_module.js"></script>    -->
+<script type="text/javascript">
+/* get date for default value*/
+let today = new Date().toISOString().substr(0, 10);
+document.querySelector("#date").value = today;
+
+/* Pricing module*/
+function pricing(){
+    var gallon=document.getElementById("#gallon").value;
+    var dateform = document.getElementById("#date").value;
+    var timePeriod = datetime.datetime.strptime(dateform,"%Y-%m-%d");
+    var month = timePeriod.month;
+    var current_p = 1.5;
+    var location_f, history_f, gallon_f, company_f, fluctuation_f, margin, suggested_price, total_price;
+    if (client.state=="TX"){
+        location_f =0.02;
+    } else {
+        location_f=0.04;
+    }
+    if (clientHistory.count()==0){
+        history_f = 0;
+    } else {
+        history_f =0.01;
+    }
+    if ((+gallon)>1000){
+        gallon_f = 0.02;
+    } else {
+        gallon_f =0.03;
+    }
+    if (month>5 && month<9){
+        fluctuation_f = 0.04;
+    } else {
+        fluctuation_f = 0.03;
+    } 
+    company_f = 0.1;
+    margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f);
+    suggested_price = current_p + margin;
+    total_price = (+gallon) * suggested_price;
+    document.write("Suggested price: "+ suggested_price);
+    document.write("Total price: "+ total_price);
+    document.getElementById("#suggestprice").innerHTML = suggested_price;
+    document.getElementById("#suggestprice").value = suggested_price;
+    document.getElementById("#totalprice").innerHTML = total_price;
+    document.getElementById("#totalprice").value = total_price;
+}
+
+
+
+function checkform()
+    {
+        var f = document.forms["form1"].elements;
+        var cansubmit = true;
+
+        for (var i = 0; i < f.length; i++) {
+            if (f[i].value.length == 0) cansubmit = false;
+        }
+
+        if (cansubmit) {
+            document.getElementById('#submitbutton').disabled = !cansubmit;            
+        }
+    }
+</script>
 {% endblock content %}
