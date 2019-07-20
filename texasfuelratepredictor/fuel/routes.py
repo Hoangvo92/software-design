@@ -14,12 +14,13 @@ def fuel_rate_cal():
     form = FuelForm()
     client = ClientInformation.query.filter_by(client=current_user.email).first()
     clientHistory = Quote.query.filter_by(client_em=current_user.email)
+    count = clientHistory.count()#
     if form.validate_on_submit():
         newFuel = Quote(gallon=form.gallon.data, 
                          address=form.address.data, 
-                         datedelivery=form.d_delivery.data, 
-                         sugggested_price=form.suggestp.data,
-                         total_price =form.totalp.data,
+                         datedelivery=form.d_deliver.data, 
+                         suggested_price=float(form.suggestp.data), # will try to fix in html later
+                         total_price =float(form.totalp.data),      # will try to fix in html later
                          client_em=current_user.email)
         db.session.add(newFuel)
         db.session.commit()
@@ -27,19 +28,17 @@ def fuel_rate_cal():
         return redirect(url_for('main.home'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
                 form = form, legend='Fuel Rate Quote', client= client,
-                clientHistory=clientHistory)
+                clientHistory=count)
 
 #pricing module
-@fuel.route("/fuel_rate_price/price",  methods=['GET', 'POST'])
+@fuel.route("/fuel_rate_price/",  methods=['GET', 'POST'])
 @login_required
-def pricing_module():
+def pricing_module(gallon, datep):
     form = FuelForm()
-    gallon = form.gallon.data # input parameter later from html
-    dateform = datetime.date(2019, 9,15) #input parameter later from html
     email = current_user.email
     client = ClientInformation.query.filter_by(client=email).first()
     clientHistory = Quote.query.filter_by(client_em=email)
-    timePeriod = datetime.datetime.strptime(dateform,"%Y-%m-%d")
+    timePeriod = datetime.datetime.strptime(datep,"%Y-%m-%d")
     month = timePeriod.month
     current_p = 1.5
     location_f = 0.02 if client.state=="TX" else 0.04
@@ -50,9 +49,12 @@ def pricing_module():
     margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f)
     suggested_price = current_p + margin
     total_price = gallon * suggested_price
+    #input into form
+    form.totalp.data = total_price
+    form.suggestp.data = suggested_price
     return render_template('fuel_form.html', title='Fuel Quote Form',
                 form = form, legend='Fuel Rate Quote', client= client,
-                totalp=total_price, suggestp=suggested_price)
+                )
 
 #to check fuel quote history
 @fuel.route("/fuel_history",  methods=['GET', 'POST'])

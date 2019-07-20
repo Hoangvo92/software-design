@@ -9,8 +9,8 @@
                     <li>Gallon:            {{quote.gallon}}</li>
                     <li>Address:           {{quote.address}}</li>
                     <li>Date delivery:     {{quote.datedelivery}}</li>
-                    <li>Suggested price: $ {{quote.suggested_price}}</li> 
-                    <li>Total price:     $ {{quote.total_price}}</li>
+                    <li>Suggested price: $ {{ "$%.2f"|format(quote.suggested_price)}}</li> 
+                    <li>Total price:     $ {{"$%.2f"|format(quote.total_price)}}</li>
                   </ul>
             </article>      
         {% endfor%}

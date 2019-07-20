@@ -1,9 +1,15 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
+<!-- <script type="text/javascript">
+    var a=document.getElementById("#gallon").innerHTML;
+    var ga = +a;
+    var b = document.getElementById("#date").value;
+    var da = new Date(b);
+</script>  -->
 
 <div class="content-section">
-    <form name="form1" method="POST" action="" onsubmit="return false">
+    <form name="form1" method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
             <legend class="border_bottom mb-4">{{ legend }}</legend>
@@ -19,7 +25,7 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.gallon(class="form-control form-control-lg", id="gallon",  onKeyup="checkform()") }}
+                    {{ form.gallon(class="form-control form-control-lg", id="gallon") }}
                 {% endif %}
             </div>
 
@@ -45,34 +51,39 @@
             </div>
 
             <!--set price-->
-            <div>
+            <div >
                     <button name="Get Price" id="get_price"
-                            class="btn btn-primary" onlick="pricing();" 
-                            value="Get Price">Get Price</button>
+                            class="btn btn-primary" type="button" onclick="pricing_calculation(); return false; " 
+                          >Get Price</button>
             </div>
+
+            <!--  <div >
+                <input class="btn btn-danger" type="submit" value="Test python" 
+                      action="{{ url_for('fuel.pricing_module', gallon=ga, datep=da) }}" method="POST">
+            </div> -->
           
             <!-- suggested price -->
             <div class="form-group">
-                {{ form.suggestp.label(class="form-control-label") }}
+                {{ form.suggestp.label(class="form-control-label") }} $
 
                 {{ form.suggestp(class="form-control form-control-lg",
-                                 value=suggestp,
-                                 id="suggestprice") }}
+                                 value=suggestp, type="Number", step="0.01",
+                                 id="suggestprice", readonly="readonly") }}
             </div>
 
             <!-- total price -->
             <div class="form-group">
-                {{ form.totalp.label(class="form-control-label") }}
+               {{ form.totalp.label(class="form-control-label") }} $
                 {{ form.totalp(class="form-control form-control-lg", 
-                               value=totalp, 
-                               id="totalprice"
+                               value=totalp, type="Number", step="0.01",
+                               id="totalprice", readonly="readonly"
                                ) }}
             </div>
         </fieldset>
 
         <!-- submit -->
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info btn-danger", id="submitbutton", disabled="disabled") }}
+            {{ form.submit(class="btn btn-outline-info", id="submitbutton") }}
         </div>
        
     </form>
@@ -80,68 +91,74 @@
 
 <!--  <script type="text/javascript" src="scripts/pricing_module.js"></script>    -->
 <script type="text/javascript">
-/* get date for default value*/
-let today = new Date().toISOString().substr(0, 10);
-document.querySelector("#date").value = today;
-
-/* Pricing module*/
-var totalp=0, suggestp=0;
-document.getElementById("#get_price").onclick = pricing;
-function pricing(){
-    var gallon=document.getElementById("#gallon").value;
-    document.write("Gallon: "+ gallon);//
-    var dateform = document.getElementById("#date").value;
-    document.write("dateform: "+ dateform);//
-    var timePeriod = datetime.datetime.strptime(dateform,"%Y-%m-%d");
-    var month = timePeriod.month;
-    var current_p = 1.5;
-    var location_f, history_f, gallon_f, company_f, fluctuation_f, margin, suggested_price, total_price;
-    if (client.state=="TX"){
-        location_f =0.02;
-    } else {
-        location_f=0.04;
-    }
-    if (clientHistory.count()==0){
-        history_f = 0;
-    } else {
-        history_f =0.01;
-    }
-    if ((+gallon)>1000){
-        gallon_f = 0.02;
-    } else {
-        gallon_f =0.03;
-    }
-    if (month>5 && month<9){
-        fluctuation_f = 0.04;
-    } else {
-        fluctuation_f = 0.03;
-    } 
-    company_f = 0.1;
-    margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f);
-    suggested_price = current_p + margin;
-    total_price = (+gallon) * suggested_price;
-    document.write("Suggested price: "+ suggested_price);
-    document.write("Total price: "+ total_price);
-    document.getElementById("#suggestprice").innerHTML = suggested_price;
-    suggestp = suggested_price;
-    document.getElementById("#totalprice").innerHTML = total_price;
-    totalp = total_price;
-}
-
-
-
-function checkform()
-    {
-        var f = document.forms["form1"].elements;
-        var cansubmit = true;
-
-        for (var i = 0; i < f.length; i++) {
-            if (f[i].value.length == 0) cansubmit = false;
+    /* get date for default value*/
+   
+    let today = new Date().toISOString().substr(0, 10);
+    document.querySelector("#date").value = today;
+    
+    /* Pricing module*/
+    document.getElementById("#suggestprice").value= Number;
+    document.getElementById("#totalprice").value = Number;
+    var totalp=0, suggestp=0;
+    //document.getElementById("#get_price").onclick = pricing_calculation;
+    function pricing_calculation(){
+        var gal=document.getElementById("gallon").value;
+        gallon = Number(gal); //change string into number
+        var dateform = document.getElementById("date").value;
+        var datedata = new Date(dateform);
+        var month = 1+ datedata.getMonth(); //the getMonth run fron 0->11
+        var current_p = 1.5;
+        var location_f, history_f, gallon_f, company_f, fluctuation_f, margin, suggested_price, total_price;
+        var temp = "{{ client.state }}";
+        if (temp =="TX"){
+            location_f =0.02;
+        } else {
+            location_f=0.04;
         }
-
-        if (cansubmit) {
-            document.getElementById('#submitbutton').disabled = !cansubmit;            
+        temp = {{clientHistory}};
+        if (temp ==0){
+            history_f = 0;
+        } else {
+            history_f =0.01;
         }
+        if ((+gallon)>1000){
+            gallon_f = 0.02;
+        } else {
+            gallon_f =0.03;
+        }
+        if (month>5 && month<9){
+            fluctuation_f = 0.04;
+        } else {
+            fluctuation_f = 0.03;
+        } 
+        company_f = 0.1;
+        margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f);
+        suggested_price = current_p + margin;
+        total_price = (+gallon) * suggested_price;
+        suggested_price= Math.round(suggested_price*100)/100;
+        total_price = Math.round(total_price*100)/100;
+        document.getElementById("suggestprice").value = Number(suggested_price);
+        //suggestp = suggested_price;
+        document.getElementById("totalprice").value = Number(total_price);
+        //totalp = total_price;
     }
-</script>
+    
+    
+    
+   /* function checkform()
+        {
+            var f = document.forms["form1"].elements;
+            var cansubmit = true;
+    
+            for (var i = 0; i < f.length; i++) {
+                if (f[i].value.length == 0) cansubmit = false;
+            }
+    
+            if (cansubmit) {
+                document.getElementById('#submitbutton').disabled = !cansubmit;            
+            }
+        }
+*/
+  
+    </script>
 {% endblock content %}
