@@ -57,10 +57,7 @@
                           >Get Price</button>
             </div>
 
-            <!--  <div >
-                <input class="btn btn-danger" type="submit" value="Test python" 
-                      action="{{ url_for('fuel.pricing_module', gallon=ga, datep=da) }}" method="POST">
-            </div> -->
+    
           
             <!-- suggested price -->
             <div class="form-group">
@@ -89,7 +86,8 @@
     </form>
 </div>
 
-<!--  <script type="text/javascript" src="scripts/pricing_module.js"></script>    -->
+
+<!--  <script  src="scripts/pricing_module.js"></script>   --> 
 <script type="text/javascript">
     /* get date for default value*/
    
@@ -100,7 +98,6 @@
     document.getElementById("#suggestprice").value= Number;
     document.getElementById("#totalprice").value = Number;
     var totalp=0, suggestp=0;
-    //document.getElementById("#get_price").onclick = pricing_calculation;
     function pricing_calculation(){
         var gal=document.getElementById("gallon").value;
         gallon = Number(gal); //change string into number
@@ -138,27 +135,9 @@
         suggested_price= Math.round(suggested_price*100)/100;
         total_price = Math.round(total_price*100)/100;
         document.getElementById("suggestprice").value = Number(suggested_price);
-        //suggestp = suggested_price;
-        document.getElementById("totalprice").value = Number(total_price);
-        //totalp = total_price;
+        document.getElementById("totalprice").value = Number(total_price);  
     }
     
-    
-    
-   /* function checkform()
-        {
-            var f = document.forms["form1"].elements;
-            var cansubmit = true;
-    
-            for (var i = 0; i < f.length; i++) {
-                if (f[i].value.length == 0) cansubmit = false;
-            }
-    
-            if (cansubmit) {
-                document.getElementById('#submitbutton').disabled = !cansubmit;            
-            }
-        }
-*/
-  
-    </script>
+
+</script>
 {% endblock content %}
