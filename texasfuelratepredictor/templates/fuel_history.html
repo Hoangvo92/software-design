@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<h3 class="mb-3"> Fuel Quote History of {{ user.fullname }} ({{ listQuote.total}})</h3>>
+<h3 class="mb-3"> Fuel Quote History for {{ user.fullname }} ({{ listQuote.total}})</h3>>
     {% if listQuote %}
         {% for quote in listQuote.items %}
             <article class = "media content-section">
