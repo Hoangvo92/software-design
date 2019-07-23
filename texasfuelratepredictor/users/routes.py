@@ -58,7 +58,7 @@ def account():
     db.session.add(client_info)
 
     if form.validate_on_submit():
-        client_info = ClientInformation.query.filter_by(client=current_user.email).first()#
+        client_info = ClientInformation.query.filter_by(client=current_user.email).first()#fix the issue of wrong update
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
