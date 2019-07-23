@@ -66,7 +66,10 @@
                         {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.fullname(class="form-control form-control-lg") }}
+                        {% set fullname_string = [client.fullname] %}
+                        {{ form.fullname(class="form-control form-control-lg",
+                                         value=fullname_string, style="background-color:transparent",
+                                         id="fullname") }}
                     {% endif %}
                 </div>
 
@@ -81,7 +84,10 @@
                         {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.address1(class="form-control form-control-lg") }}
+                        {% set address1_string = [client.address1] %}
+                        {{ form.address1(class="form-control form-control-lg",
+                                         value=address1_string, style="background-color:transparent",
+                                         id="address1") }}
                     {% endif %}
                 </div>
 
@@ -96,7 +102,10 @@
                         {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.address2(class="form-control form-control-lg") }}
+                        {% set address2_string = [client.address2] %}
+                        {{ form.address2(class="form-control form-control-lg",
+                                         value=address2_string, style="background-color:transparent",
+                                         id="address2") }}
                     {% endif %}
                 </div>
 
@@ -111,7 +120,10 @@
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.city(class="form-control form-control-lg") }}
+                        {% set city_string = [client.city] %}
+                        {{ form.city(class="form-control form-control-lg",
+                                         value=city_string, style="background-color:transparent",
+                                         id="city") }}
                     {% endif %}
                 </div>
 
@@ -126,7 +138,10 @@
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.state(class="form-control form-control-lg") }}
+                        {% set state_string = [client.state] %}
+                        {{ form.state(class="form-control form-control-lg",
+                                         value=state_string, style="background-color:transparent",
+                                         id="state") }}
                     {% endif %}
                 </div>
 
@@ -141,7 +156,10 @@
                         {% endfor %}
                     </div>
                     {% else %}
-                    {{ form.zipcode(class="form-control form-control-lg") }}
+                        {% set zipcode_string = [client.zipcode] %}
+                        {{ form.zipcode(class="form-control form-control-lg",
+                                         value=zipcode_string, style="background-color:transparent",
+                                         id="zipcode") }}
                     {% endif %}
                 </div>
             </fieldset>

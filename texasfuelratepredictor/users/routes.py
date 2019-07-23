@@ -48,31 +48,20 @@ def logout():
 @login_required
 def account():
     form = UpdateAccountForm()
-
-    if request.method == 'GET':
-        client_info = ClientInformation.query.filter_by(client=current_user.email).first_or_404()
-        form.username.data = current_user.username
-        form.email.data = current_user.email
-        form.fullname.data = client_info.fullname
-        form.address1.data = client_info.address1
-        form.address2.data = client_info.address2
-        form.city.data = client_info.city
-        form.state.data = client_info.state
-        form.zipcode.data = client_info.zipcode
-        return render_template('account.html', title='Account', form=form)
-    elif form.validate_on_submit():
-        client_info = ClientInformation(fullname=form.fullname.data,
-                address1=form.address1.data,
-                address2=form.address2.data,
-                city=form.city.data,
-                state=form.state.data,
-                zipcode=form.zipcode.data,
-                client=current_user.email)
-        db.session.add(client_info)
-        client_info = ClientInformation.query.filter_by(client=current_user.email).first() #fix the issue of wrong update
+    client_info = ClientInformation(fullname=form.fullname.data,
+            address1=form.address1.data,
+            address2=form.address2.data,
+            city=form.city.data,
+            state=form.state.data,
+            zipcode=form.zipcode.data,
+            client=current_user.email)
+    db.session.add(client_info)
+    if request.method == 'POST' and form.validate_on_submit():
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file
+        current_user.username = form.username.data
+        current_user.email = form.email.data
         client_info.fullname = form.fullname.data
         client_info.address1 = form.address1.data
         client_info.address2 = form.address2.data
@@ -82,9 +71,19 @@ def account():
         db.session.commit()
         flash('Your account has been updated!', 'success')
         return redirect(url_for('users.account'))
+
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+        form.fullname.data = client_info.fullname
+        form.address1.data = client_info.address1
+        form.address2.data = client_info.address2
+        form.city.data = client_info.city
+        form.state.data = client_info.state
+        form.zipcode.data = client_info.zipcode
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('account.html', title='Account',
-            image_file=image_file, form=form)
+            image_file=image_file, form=form, client=client_info)
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
