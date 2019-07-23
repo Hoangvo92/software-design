@@ -26,7 +26,7 @@ def register():
 @users.route("/login", methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('main.home'))
+        return redirect(url_for('users.account'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -56,7 +56,9 @@ def account():
             zipcode=form.zipcode.data,
             client=current_user.email)
     db.session.add(client_info)
+
     if form.validate_on_submit():
+        client_info = ClientInformation.query.filter_by(client=current_user.email).first()#
         if form.picture.data:
             picture_file = save_picture(form.picture.data)
             current_user.image_file = picture_file

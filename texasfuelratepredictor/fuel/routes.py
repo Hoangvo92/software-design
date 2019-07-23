@@ -12,7 +12,7 @@ fuel = Blueprint('fuel', __name__)
 @login_required
 def fuel_rate_cal():
     form = FuelForm()
-    client = ClientInformation.query.filter_by(client=current_user.email).first()
+    client_info = ClientInformation.query.filter_by(client=current_user.email).first()
     clientHistory = Quote.query.filter_by(client_em=current_user.email)
     count = clientHistory.count()#
     if form.validate_on_submit():
@@ -27,7 +27,7 @@ def fuel_rate_cal():
         flash('New Fuel Rate Quote in History', 'success')
         return redirect(url_for('main.home'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
-                form = form, legend='Fuel Rate Quote', client= client,
+                form = form, legend='Fuel Rate Quote', client= client_info,
                 clientHistory=count)
 
 
