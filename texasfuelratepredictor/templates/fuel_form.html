@@ -178,7 +178,7 @@
             document.getElementById('get_price').disabled = true; 
         }
     }
-    function checkDate(){
+    function checkDateBeforePrice(){
         var enterdate = document.getElementById("date").value;
         enterdate= new Date(enterdate);
         if (enterdate<validdate ){
@@ -193,7 +193,7 @@
     }
 
     function setPrice(){
-        checkDate();
+        checkDateBeforePrice();
     }
 
 
