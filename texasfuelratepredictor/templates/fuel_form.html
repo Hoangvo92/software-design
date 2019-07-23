@@ -25,7 +25,10 @@
                         {% endfor %}
                     </div>
                 {% else %}
-                    {{ form.gallon(class="form-control form-control-lg", id="gallon") }}
+                    {{ form.gallon(class="form-control form-control-lg", 
+                                   id="gallon", 
+                                   onkeyup="validateEnter()",
+                                   style="background-color:transparent") }}
                 {% endif %}
             </div>
 
@@ -35,7 +38,7 @@
                 {% set my_string1 = [client.address1, client.address2]|join(' ') %}
                 {% set my_string = [my_string1, client.city, client.state, client.zipcode]|join(', ') %}
                 {{ form.address(class="form-control form-control-lg",
-                                 value=my_string,
+                                 value=my_string, readonly="readonly", style="background-color:transparent",
                                  id="address") }}
             </div>
 
@@ -43,17 +46,22 @@
             <div class="form-group">
                 {{ form.d_deliver.label(class="form-control-label") }}
                 {{form.d_deliver(class="form-control form-control-lg",
-                                   type="date", id="date", onload="getDate()",
-                                   style="border: 1px solid; border-radius: 5px; border-color: #ced4da",
+                                   type="date", id="date", onload="getDate()", onkeyup="validateEnter()",
+                                   style="border: 1px solid; border-radius: 5px; border-color: #ced4da; background-color:transparent",
                                     min="2019-07-01", max="2029-08-02") }}
                <!--<input type="date" name="date" style="border: 1px solid; border-radius: 5px; border-color: #ced4da"
                      min="2019-07-01" max="2029-08-02"> --> 
+                  
+            </div>
+            <div>
+                <p id="reminderDate"></p>
             </div>
 
             <!--set price-->
             <div >
                     <button name="Get Price" id="get_price"
-                            class="btn btn-primary" type="button" onclick="pricing_calculation(); return false; " 
+                            class="btn btn-primary" type="button" onclick="setPrice(); return false; " 
+                        disabled="disabled"
                           >Get Price</button>
             </div>
 
@@ -80,7 +88,7 @@
 
         <!-- submit -->
         <div class="form-group">
-            {{ form.submit(class="btn btn-outline-info", id="submitbutton") }}
+            {{ form.submit(class="btn btn-outline-info", id="submitbutton", disabled="disabled") }}
         </div>
        
     </form>
@@ -92,11 +100,24 @@
     /* get date for default value*/
    
     let today = new Date().toISOString().substr(0, 10);
-    document.querySelector("#date").value = today;
+    //document.querySelector("#date").value = today;
+    
+    //Prepare date values for function
+
+    var validdate = new Date(today);
+    var day = validdate.getDate();
+    if (day>30 || day==30){
+            validdate.setMonth(validdate.getMonth()+1);
+            validdate.setDate(2);
+    } else{
+            validdate.setDate(day+2);
+    }
+    document.querySelector("#date").value = validdate.toISOString().substr(0,10);
+
+   
     
     /* Pricing module*/
-    document.getElementById("#suggestprice").value= Number;
-    document.getElementById("#totalprice").value = Number;
+
     var totalp=0, suggestp=0;
     function pricing_calculation(){
         var gal=document.getElementById("gallon").value;
@@ -135,9 +156,47 @@
         suggested_price= Math.round(suggested_price*100)/100;
         total_price = Math.round(total_price*100)/100;
         document.getElementById("suggestprice").value = Number(suggested_price);
-        document.getElementById("totalprice").value = Number(total_price);  
+        document.getElementById("totalprice").value = Number(total_price); 
+        enableSubmit(); 
     }
+
+    //For buttons
+    //for submit button
+    function enableSubmit() {
+            document.getElementById('gallon').readOnly = true;
+            document.getElementById('date').readOnly = true;
+            document.getElementById("submitbutton").disabled = false;
+        }
     
+    //for set_price button
+    function checkGallon(){
+        var entergallon = Number(document.getElementById("gallon").value);
+       
+        if (entergallon >0){           
+            document.getElementById('get_price').disabled= false;
+        } else {
+            document.getElementById('get_price').disabled = true; 
+        }
+    }
+    function checkDate(){
+        var enterdate = document.getElementById("date").value;
+        enterdate= new Date(enterdate);
+        if (enterdate<validdate ){
+                document.getElementById('reminderDate').innerHTML="Please choose at least 2 days later from today for time delivery";
+            } else {   
+                document.getElementById('reminderDate').innerHTML="";   
+                pricing_calculation();        
+            }
+    }
+    function validateEnter(){
+        checkGallon();
+    }
+
+    function setPrice(){
+        checkDate();
+    }
+
+
 
 </script>
 {% endblock content %}
