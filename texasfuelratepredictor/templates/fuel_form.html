@@ -1,18 +1,12 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
-<!-- <script type="text/javascript">
-    var a=document.getElementById("#gallon").innerHTML;
-    var ga = +a;
-    var b = document.getElementById("#date").value;
-    var da = new Date(b);
-</script>  -->
 
 <div class="content-section">
     <form name="form1" method="POST" action="">
         {{ form.hidden_tag() }}
         <fieldset class="form-group">
-            <legend class="border_bottom mb-4">{{ legend }}</legend>
+            <legend class="border_bottom mb-4" style="color:  hsl(195, 100%, 60%); opacity: 0.6">{{ legend }}</legend>
 
             <!-- gallon -->
             <div class="form-group">
@@ -94,17 +88,14 @@
     </form>
 </div>
 
-
-<!--  <script  src="scripts/pricing_module.js"></script>   --> 
+<!--
+<script  type='text/javascript' src="js/pricing_module.js" ></script>  -->
 <script type="text/javascript">
     /* get date for default value*/
    
-    let today = new Date().toISOString().substr(0, 10);
-    //document.querySelector("#date").value = today;
-    
     //Prepare date values for function
 
-    var validdate = new Date(today);
+    var validdate = new Date();
     var day = validdate.getDate();
     if (day>30 || day==30){
             validdate.setMonth(validdate.getMonth()+1);
@@ -182,7 +173,7 @@
         var enterdate = document.getElementById("date").value;
         enterdate= new Date(enterdate);
         if (enterdate<validdate ){
-                document.getElementById('reminderDate').innerHTML="Please choose at least 2 days later from today for time delivery";
+                document.getElementById('reminderDate').innerHTML="Please choose at least 3 days later from today for time delivery";
             } else {   
                 document.getElementById('reminderDate').innerHTML="";   
                 pricing_calculation();        
@@ -195,7 +186,6 @@
     function setPrice(){
         checkDateBeforePrice();
     }
-
 
 
 </script>

@@ -66,7 +66,8 @@
                         {% endfor %}
                         </div>
                     {% else %}
-                        {{ form.fullname(class="form-control form-control-lg") }}
+                        {% set my_string = client.fullname %}
+                        {{ form.fullname(class="form-control form-control-lg", value=my_string) }}
                     {% endif %}
                 </div>
 

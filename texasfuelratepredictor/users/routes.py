@@ -56,6 +56,7 @@ def account():
             zipcode=form.zipcode.data,
             client=current_user.email)
     db.session.add(client_info)
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file) #
 
     if form.validate_on_submit():
         client_info = ClientInformation.query.filter_by(client=current_user.email).first()#fix the issue of wrong update
@@ -70,7 +71,10 @@ def account():
         client_info.zipcode = form.zipcode.data
         db.session.commit()
         flash('Your account has been updated!', 'success')
-        return redirect(url_for('users.account'))
+       # return redirect(url_for('users.account'))
+        return render_template('account.html', title='Account',
+            image_file=image_file, form=form, client=client_info)
+
     elif request.method == 'GET':
         form.username.data = current_user.username
         form.email.data = current_user.email
@@ -80,9 +84,9 @@ def account():
         form.city.data = client_info.city
         form.state.data = client_info.state
         form.zipcode.data = client_info.zipcode
-    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+
     return render_template('account.html', title='Account',
-            image_file=image_file, form=form)
+            image_file=image_file, form=form, client=client_info)
 
 @users.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
