@@ -25,7 +25,7 @@ def fuel_rate_cal():
         db.session.add(newFuel)
         db.session.commit()
         flash('New Fuel Rate Quote in History', 'success')
-        return redirect(url_for('main.home'))
+        return redirect(url_for('fuel.history'))
     return render_template('fuel_form.html', title='Fuel Quote Form',
                 form = form, legend='Fuel Rate Quote', client= client_info,
                 clientHistory=count)
