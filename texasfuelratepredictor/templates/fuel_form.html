@@ -110,37 +110,36 @@
     /* Pricing module*/
 
     var totalp=0, suggestp=0;
-    function pricing_calculation(){
-        var gal=document.getElementById("gallon").value;
-        gallon = Number(gal); //change string into number
-        var dateform = document.getElementById("date").value;
+    function getNumber(stringID){
+        var strValue=document.getElementById(stringID).value;
+        var numValue = Number(strValue);//change string into number
+        return numValue;
+    }
+    function getMonthNumber(stringID){
+        var dateform = document.getElementById(stringID).value;
         var datedata = new Date(dateform);
         var month = 1+ datedata.getMonth(); //the getMonth run fron 0->11
-        var current_p = 1.5;
-        var location_f, history_f, gallon_f, company_f, fluctuation_f, margin, suggested_price, total_price;
+        return month;
+    }
+
+
+    function pricing_calculation(){
+        //declare variables
+        var gallon = getNumber("gallon"),
+             month = getMonthNumber("date");
+
+        var location_f, history_f, gallon_f, 
+             fluctuation_f, margin, 
+             suggested_price, total_price,
+             company_f = 0.1, current_p = 1.5;
+        //assign values for factors
         var temp = "{{ client.state }}";
-        if (temp =="TX"){
-            location_f =0.02;
-        } else {
-            location_f=0.04;
-        }
+        if (temp =="TX"){  location_f =0.02;} else { location_f=0.04; }
         temp = {{clientHistory}};
-        if (temp ==0){
-            history_f = 0;
-        } else {
-            history_f =0.01;
-        }
-        if ((+gallon)>1000){
-            gallon_f = 0.02;
-        } else {
-            gallon_f =0.03;
-        }
-        if (month>5 && month<9){
-            fluctuation_f = 0.04;
-        } else {
-            fluctuation_f = 0.03;
-        } 
-        company_f = 0.1;
+        if (temp ==0){ history_f = 0;}  else { history_f =0.01;}
+        if (gallon > 1000){ gallon_f = 0.02;} else {   gallon_f = 0.03; }
+        if (month>5 && month<9){ fluctuation_f = 0.04;} else {fluctuation_f = 0.03; } 
+        //calculation
         margin = current_p*(location_f-history_f+gallon_f+company_f+fluctuation_f);
         suggested_price = current_p + margin;
         total_price = (+gallon) * suggested_price;
@@ -150,6 +149,7 @@
         document.getElementById("totalprice").value = Number(total_price); 
         enableSubmit(); 
     }
+
 
     //For buttons
     //for submit button
