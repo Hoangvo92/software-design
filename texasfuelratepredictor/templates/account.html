@@ -66,15 +66,12 @@
                         {% endfor %}
                         </div>
                     {% else %}
-<<<<<<< HEAD
-                        {% set my_string = client.fullname %}
-                        {{ form.fullname(class="form-control form-control-lg", value=my_string) }}
-=======
+
                         {% set fullname_string = [client.fullname] %}
                         {{ form.fullname(class="form-control form-control-lg",
                                          value=fullname_string, style="background-color:transparent",
                                          id="fullname") }}
->>>>>>> c1deffe82bea58814d50e840230a2ccf5f14c4a3
+
                     {% endif %}
                 </div>
 

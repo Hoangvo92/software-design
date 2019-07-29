@@ -1,5 +1,16 @@
 <!-- template inheritence -->
 {% extends "layout.html" %}
 {% block content %}
-    <h1> Home Page </h1>
+<div style="background-color: transparent; height: 300px; border: 1px">
+    <div style="border:thin blue">
+        <h2> WELCOME TO TEXAS FUEL RATE PREDICTOR!</h2>
+    </div>
+    
+    <div valign="bottom">
+        <p>Please <a href="{{ url_for('users.account') }}">update your account information </a> to have accurate fuel quote.</p>
+        <p>If you already updated your account go ahead and <a href="{{ url_for('fuel.fuel_rate_cal') }}">calculate your first fuel quote!</a></p>
+    </div>
+    
+</div>
+   
 {% endblock content %}

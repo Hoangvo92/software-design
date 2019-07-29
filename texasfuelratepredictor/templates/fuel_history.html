@@ -5,7 +5,10 @@
         {% for quote in listQuote.items %}
             <article class = "media content-section">
                 <div class="col-md-4">
-                    <h5>Time created: <a class="article-title" href="{{ url_for('fuel.pastQuote',quote_id=quote.id)}}">{{quote.datepost.strftime('%Y-%m-%d')}}</a></h5>
+                    <h5>Time created: <a class="article-title" 
+                                      href="{{ url_for('fuel.pastQuote',quote_id=quote.id)}}">
+                                      {{quote.datepost.strftime('%Y-%m-%d')}}
+                                      </a></h5>
                 </div>
                 <div class="col-md-8">
                     <ul>
