@@ -40,7 +40,7 @@ def history():
     page = request.args.get('page', 1, type=int)
     clientHistory = Quote.query.filter_by(client_em=email)\
                  .order_by(Quote.id.desc())\
-                 .paginate(per_page=5, page=page)
+                 .paginate(per_page=3, page=page)
 
     return render_template('fuel_history.html', title='Fuel Quote History',
                 legend='Fuel Quote History', listQuote= clientHistory, user=user)
