@@ -115,6 +115,7 @@ Coming soon.
 * [Flask SQLAlchemy] (http://tinyurl.com/y65ko6h3/) - The database used
 * [Python] (http://python.org)
 * [Bootstrap] (http://getbootstrap.com/)
+* [WTForms] (https://wtforms.readthedocs.io/en/stable/crash_course.html) - Another Python Framework
 
 ## Authors
 
