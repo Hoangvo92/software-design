@@ -9,3 +9,5 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USERNAME = os.environ.get('EMAIL_USER')
     MAIL_PASSWORD = os.environ.get('EMAIL_PASS')
+    # to supress the warning when launching the app
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
